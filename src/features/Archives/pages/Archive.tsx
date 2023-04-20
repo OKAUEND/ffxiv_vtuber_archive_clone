@@ -13,10 +13,6 @@ export const Archive = () => {
         ? router.query.channelId[0]
         : router.query.channelId;
 
-    if (router.query.channelId === undefined) {
-        return <div></div>;
-    }
-
     const Archives = useArchives(query);
     const [loadNextList] = usePage();
 

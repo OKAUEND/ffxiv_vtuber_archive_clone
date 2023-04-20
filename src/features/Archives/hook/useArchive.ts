@@ -212,6 +212,13 @@ const archiveList = selectorFamily<ArchiveListState, string>({
     get:
         (channelId) =>
         ({ get }) => {
+            if (channelId === undefined) {
+                return {
+                    archives: [],
+                    mightHaveMore: true,
+                };
+            }
+
             return get(
                 //ここで検索開始日時を引数で渡さないのは、日時を生成すると時刻(秒単位でも)変わると、
                 //Selectorが別キャッシュとして判定し、無限に呼び出しを行うため

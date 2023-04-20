@@ -29,7 +29,6 @@ export default function Home({ status, message, item }: Props) {
                     </Suspense>
                 </div>
             </main>
-            TEST
             <footer className="bg-gray-800 p-5">
                 <a
                     href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
