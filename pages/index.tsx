@@ -22,13 +22,13 @@ export default function Home({ status, message, item }: Props) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <header className="bg-gray-900 p-5">Header</header>
-            {/* <main className="bg-gray-800 h-full">
+            <main className="bg-gray-800 h-full">
                 <div>
                     <Suspense fallback={<p>Loading...</p>}>
                         <Channels ChannelsFirstPagenation={item} />
                     </Suspense>
                 </div>
-            </main> */}
+            </main>
             TEST
             <footer className="bg-gray-800 p-5">
                 <a
@@ -50,26 +50,26 @@ export default function Home({ status, message, item }: Props) {
     );
 }
 
-// export const getServerSideProps: GetServerSideProps<Props> = async () => {
-//     const HOST = process.env.CHANNELLIST_URL;
-//     const response = await fetch(HOST, {
-//         method: 'GET',
-//     }).then(async (response) => {
-//         const data: HikasenVtuber[] = await response.json();
-//         if (!response.ok) {
-//             const err: Props = {
-//                 message: 'Error',
-//                 status: response.status,
-//             };
-//             return err;
-//         }
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+    const HOST = process.env.CHANNELLIST_URL;
+    const response = await fetch(HOST, {
+        method: 'GET',
+    }).then(async (response) => {
+        const data: HikasenVtuber[] = await response.json();
+        if (!response.ok) {
+            const err: Props = {
+                message: 'Error',
+                status: response.status,
+            };
+            return err;
+        }
 
-//         return {
-//             item: data,
-//             status: response.status,
-//         };
-//     });
-//     return {
-//         props: response,
-//     };
-// };
+        return {
+            item: data,
+            status: response.status,
+        };
+    });
+    return {
+        props: response,
+    };
+};
