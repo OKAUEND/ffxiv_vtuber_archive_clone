@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import {
-    atomFamily,
+    atom,
     noWait,
+    selector,
     selectorFamily,
     useRecoilCallback,
     useRecoilValue,
@@ -40,6 +41,24 @@ export const pageSize = 25;
 //配信の概要欄にクエリワードがあると、Youtubeの性質上取得されてしまうので、
 //取得後にフィルタリングするために、抽出させたい単語をまとめておいた
 const queryWorld = `FF14|FFXIV`;
+//---------------------------------------------------------------------------
+
+const paramChannelID = atom<string>({
+    key: 'data-flow/channelID',
+    default: '',
+});
+
+const createQueryParameter = selector<string>({
+    key: 'data-flow/create-query-parameter',
+    get: ({ get }) => {
+        const selectedChannelID = get(paramChannelID);
+        if (selectedChannelID === '') {
+            return '';
+        }
+
+        return `/api/archives?channelId=${selectedChannelID}`;
+    },
+});
 
 //---------------------------------------------------------------------------
 
@@ -67,19 +86,30 @@ const converRawResultToArchives = (response: YoutubeDate): Archive[] => {
  * @param channelId 対象の配信者のYoutubeChannelID
  * @returns {Array} 取得済みの過去配信(アーカイブ)
  */
-export const useArchives = (channelId: string) => {
+export const useArchives = () => {
+    const queryParameter = useRecoilValue(createQueryParameter);
     const fetcher = async (url: string): Promise<ApiResult> => {
         const resonse = await fetch(url);
         return resonse.json();
     };
 
     const { data, error } = useSWR(
-        `/api/archives?channelId=${channelId}`,
+        queryParameter === '' ? null : queryParameter,
         fetcher,
         {
             suspense: true,
         }
     );
 
-    return { archives: data.item.items };
+    const setChannelID = useRecoilCallback(({ set }) => (channelID: string) => {
+        set(paramChannelID, () => channelID);
+    });
+
+    const reset = useRecoilCallback(({ set }) => () => {
+        set(paramChannelID, () => '');
+    });
+
+    if (!data) return { archives: [], setChannelID, reset };
+
+    return { archives: data.item.items, setChannelID, reset };
 };

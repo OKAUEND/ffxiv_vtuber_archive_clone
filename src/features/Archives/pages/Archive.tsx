@@ -4,6 +4,7 @@ import NextLoad from '../component/NextLoad';
 
 import { ArchiveList } from '../component/ArchiveList';
 import { useArchives } from '../hook/useArchive';
+import { useEffect } from 'react';
 
 export const Archive = () => {
     const router = useRouter();
@@ -13,9 +14,16 @@ export const Archive = () => {
         ? router.query.channelId[0]
         : router.query.channelId;
 
-    const Archives = useArchives(query);
+    const { archives, setChannelID, reset } = useArchives();
+
+    useEffect(() => {
+        if (router.isReady) {
+            setChannelID(query);
+        }
+    }, [router.isReady, router.query.channelId]);
 
     const onHandler = () => {
+        reset();
         router.push({
             pathname: '/',
         });
@@ -27,7 +35,7 @@ export const Archive = () => {
                 <button onClick={() => onHandler()}>戻る</button>
             </div>
             <div className="w-full md:w-1/2">
-                <ArchiveList Archives={[...Archives.archives]} />
+                <ArchiveList Archives={[...archives]} />
             </div>
             <div>
                 <button onClick={() => {}}>Next</button>
