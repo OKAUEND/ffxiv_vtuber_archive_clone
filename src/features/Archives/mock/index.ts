@@ -126,7 +126,7 @@ export const youtubePostHandler = (status: 200 | 400 | 500 = 200) => {
 
 export const archiveAPIRouterHandler = (status: 200 | 400 | 500 = 200) => {
     return rest.get<Data, { id: string }, Data | Error>(
-        'http://localhost:3000/api/archives',
+        '/api/archives',
         async (req, res, ctx) => {
             const channelId = req.url.searchParams.get('channelId');
             const beginTime = req.url.searchParams.get('publishedBefore');

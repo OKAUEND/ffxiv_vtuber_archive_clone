@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import NextLoad from '../component/NextLoad';
 
 import { ArchiveList } from '../component/ArchiveList';
-import { useArchives, usePage } from '../hook/useArchive';
+import { useArchives } from '../hook/useArchive';
 
 export const Archive = () => {
     const router = useRouter();
@@ -14,7 +14,6 @@ export const Archive = () => {
         : router.query.channelId;
 
     const Archives = useArchives(query);
-    const [loadNextList] = usePage();
 
     const onHandler = () => {
         router.push({
@@ -31,7 +30,7 @@ export const Archive = () => {
                 <ArchiveList Archives={[...Archives.archives]} />
             </div>
             <div>
-                <button onClick={() => loadNextList(query)}>Next</button>
+                <button onClick={() => {}}>Next</button>
             </div>
         </div>
     );
