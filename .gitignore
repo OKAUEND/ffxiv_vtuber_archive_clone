@@ -1,6 +1,7 @@
 node_modules
 .next
-.yarn
+.yarn/cache
+.yarn/install-state.gz
 .DS_Store
 dist
 dist-ssr

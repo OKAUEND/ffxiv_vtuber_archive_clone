@@ -21,9 +21,7 @@ export default function Home({ status, message, item }: Props) {
                 <meta name="description" content="ffxiv vtuber list" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
             <header className="bg-gray-900 p-5">Header</header>
-
             <main className="bg-gray-800 h-full">
                 <div>
                     <Suspense fallback={<p>Loading...</p>}>
@@ -31,7 +29,6 @@ export default function Home({ status, message, item }: Props) {
                     </Suspense>
                 </div>
             </main>
-
             <footer className="bg-gray-800 p-5">
                 <a
                     href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"

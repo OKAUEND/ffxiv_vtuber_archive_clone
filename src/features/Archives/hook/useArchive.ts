@@ -62,8 +62,6 @@ const converRawResultToArchives = (response: YoutubeDate): Archive[] => {
 };
 
 //---------------------------------------------------------------------------
-
-//---------------------------------------------------------------------------
 /**
  *
  * @param channelId 対象の配信者のYoutubeChannelID
