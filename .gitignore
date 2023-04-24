@@ -7,5 +7,4 @@ dist
 dist-ssr
 *.local
 .env
-yarn.lock
 *env.local.*
