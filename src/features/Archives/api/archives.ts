@@ -16,7 +16,7 @@ export const handler: Handler = async (request, response) => {
                 : ``;
         const beginTime = `&publishedBefore=${new Date().toISOString()}`;
 
-        return `${process.env.YOUTUBE_API_URL}?${channelId}&key=${APIKey}${beginTime}&part=snippet&type=video&order=date&q=FF14|FFXIV&maxResults=25`;
+        return `${process.env.YOUTUBE_API_URL}?${channelId}&key=${APIKey}&part=snippet&type=video&order=date&q=FF14|FFXIV&maxResults=25`;
     };
 
     switch (method) {

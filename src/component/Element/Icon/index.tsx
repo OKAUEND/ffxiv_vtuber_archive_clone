@@ -16,7 +16,7 @@ export const Icon = ({
     const youtubeIconURL = process.env.NEXT_PUBLIC_YOUTUBE_CHANNEL_ICON_URL;
     return (
         <div className="rounded-full">
-            <Image
+            <img
                 src={`${youtubeIconURL}${src}`}
                 alt={alt}
                 width={width}
