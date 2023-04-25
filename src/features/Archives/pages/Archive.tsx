@@ -8,19 +8,19 @@ import { useEffect } from 'react';
 
 export const Archive = () => {
     const router = useRouter();
-
-    //String[] or Stringなので、配列を除外しStringに型を定める
-    const query = Array.isArray(router.query.channelId)
-        ? router.query.channelId[0]
-        : router.query.channelId;
+    const query = router;
 
     const { archives, setChannelID, reset } = useArchives();
 
     useEffect(() => {
         if (router.isReady) {
-            setChannelID(query);
+            //String[] or Stringなので、配列を除外しStringに型を定める
+            const channelID = Array.isArray(router.query.channelId)
+                ? router.query.channelId[0]
+                : router.query.channelId;
+            setChannelID(channelID);
         }
-    }, [router.isReady, router.query.channelId]);
+    }, [query, router]);
 
     const onHandler = () => {
         reset();
