@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 type Props = {
     src: string;
     alt: string;
@@ -17,7 +15,7 @@ export const Icon = ({
     return (
         <div className="rounded-full">
             <img
-                src={`${youtubeIconURL}${src}`}
+                src={`https://yt3.ggpht.com/${src}`}
                 alt={alt}
                 width={width}
                 height={height}
