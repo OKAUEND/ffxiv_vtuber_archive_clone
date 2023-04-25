@@ -14,11 +14,7 @@ export const handler: Handler = async (request, response) => {
             typeof query.channelId === 'string'
                 ? `channelId=${query.channelId}`
                 : ``;
-
-        const beginTime =
-            typeof query.nextPagetoken != 'string'
-                ? `&publishedBefore=${query.publishedBefore}`
-                : ``;
+        const beginTime = `&publishedBefore=${new Date().toISOString()}`;
 
         return `${process.env.YOUTUBE_API_URL}?${channelId}&key=${APIKey}${beginTime}&part=snippet&type=video&order=date&q=FF14|FFXIV&maxResults=25`;
     };
@@ -33,6 +29,7 @@ export const handler: Handler = async (request, response) => {
                         error: true,
                     });
                 }
+                console.log(createYoutubeURL(query));
                 const res = await axios.get<
                     GoogleApiYouTubePaginationInfo<GoogleApiYouTubeSearchResource>
                 >(createYoutubeURL(query));
