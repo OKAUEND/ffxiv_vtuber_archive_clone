@@ -109,7 +109,7 @@ export const useArchives = () => {
         set(paramChannelID, () => '');
     });
 
-    if (!data) return { archives: [], setChannelID, reset };
+    if (data === undefined) return { archives: [], setChannelID, reset };
 
     return { archives: data.item.items, setChannelID, reset };
 };
