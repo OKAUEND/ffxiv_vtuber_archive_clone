@@ -29,6 +29,8 @@ export const handler: Handler = async (request, response) => {
                         error: true,
                     });
                 }
+
+                console.log(createYoutubeURL(query));
                 const res = await axios.get<
                     GoogleApiYouTubePaginationInfo<GoogleApiYouTubeSearchResource>
                 >(createYoutubeURL(query));

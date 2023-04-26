@@ -18,6 +18,7 @@ export const Archive = () => {
             const channelID = Array.isArray(router.query.channelId)
                 ? router.query.channelId[0]
                 : router.query.channelId;
+            console.log({ channelID });
             setChannelID(channelID);
         }
     }, [query, router]);

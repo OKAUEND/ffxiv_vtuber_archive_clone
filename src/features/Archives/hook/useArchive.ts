@@ -96,6 +96,7 @@ export const useArchives = () => {
     });
 
     const setChannelID = useRecoilCallback(({ set }) => (channelID: string) => {
+        console.log({ channelID });
         set(paramChannelID, () => channelID);
     });
 
