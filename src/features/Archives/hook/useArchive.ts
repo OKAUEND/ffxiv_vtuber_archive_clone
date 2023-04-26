@@ -6,6 +6,7 @@ import {
     selectorFamily,
     useRecoilCallback,
     useRecoilValue,
+    useSetRecoilState,
 } from 'recoil';
 import useSWR from 'swr';
 import { useFetch } from '@/src/hooks/useFetch';
@@ -85,6 +86,7 @@ const converRawResultToArchives = (response: YoutubeDate): Archive[] => {
  * @returns {Array} 取得済みの過去配信(アーカイブ)
  */
 export const useArchives = () => {
+    const setParamChannelID = useSetRecoilState(paramChannelID);
     const queryParameter = useRecoilValue(createQueryParameter);
     const fetcher = async (url: string): Promise<ApiResult> => {
         const resonse = await fetch(url);
@@ -95,10 +97,11 @@ export const useArchives = () => {
         suspense: true,
     });
 
-    const setChannelID = useRecoilCallback(({ set }) => (channelID: string) => {
+    const setChannelID = (channelID: string) => {
+        if (typeof channelID === undefined) return;
         console.log({ channelID });
-        set(paramChannelID, () => channelID);
-    });
+        setParamChannelID(channelID);
+    };
 
     const reset = useRecoilCallback(({ set }) => () => {
         set(paramChannelID, () => '');
