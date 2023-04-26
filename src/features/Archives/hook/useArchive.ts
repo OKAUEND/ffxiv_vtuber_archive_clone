@@ -48,13 +48,11 @@ const paramChannelID = atom<string>({
     default: '',
 });
 
-const createQueryParameter = selector<string>({
+const createQueryParameter = selector<string | false>({
     key: 'data-flow/create-query-parameter',
     get: ({ get }) => {
         const selectedChannelID = get(paramChannelID);
-        if (selectedChannelID === '') {
-            return '';
-        }
+        if (selectedChannelID === '') return false;
 
         return `/api/archives?channelId=${selectedChannelID}`;
     },
@@ -93,13 +91,9 @@ export const useArchives = () => {
         return resonse.json();
     };
 
-    const { data, error } = useSWR(
-        queryParameter === '' ? null : queryParameter,
-        fetcher,
-        {
-            suspense: true,
-        }
-    );
+    const { data, error } = useSWR(queryParameter, fetcher, {
+        suspense: true,
+    });
 
     const setChannelID = useRecoilCallback(({ set }) => (channelID: string) => {
         set(paramChannelID, () => channelID);
