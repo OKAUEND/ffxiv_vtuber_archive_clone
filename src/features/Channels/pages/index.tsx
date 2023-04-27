@@ -19,7 +19,7 @@ export const Channels = ({ ChannelsFirstPagenation }: Props) => {
     const onhandler = (selectedId: string = '') => {
         if (selectedId === '') return;
         router.push({
-            pathname: '/Archives/[channelId]',
+            pathname: '/Archives',
             query: { channelId: selectedId },
         });
     };
