@@ -99,7 +99,6 @@ export const useArchives = () => {
 
     const setChannelID = (channelID: string) => {
         if (typeof channelID === undefined) return;
-        console.log({ channelID });
         setParamChannelID(channelID);
     };
 
