@@ -1,0 +1,86 @@
+@use '@/_styles/variables/variables.scss';
+
+.container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  &::after {
+    content: '';
+    width: 350px;
+    padding: 4px;
+    margin: 2px;
+
+    @include variables.mq(sm) {
+      width: 380px;
+    }
+  }
+}
+
+.channel_list {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  max-width: 24rem;
+  padding: 4px;
+  margin: 2px;
+
+  @include variables.mq(sm) {
+    width: 380px;
+  }
+
+  @include variables.panel_color_style();
+
+  .channel_content {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 2fr 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+  }
+
+  .channel_icon {
+    grid-area: 1 / 1 / 3 / 2;
+  }
+
+  .channel_info {
+    grid-area: 1 / 2 / 2 / 3;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    inline-size: auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .info_title {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info_text {
+    color: variables.$title_color;
+    font-family: sans-serif;
+    font-size: 1.125rem;
+    display: grid;
+    place-items: center;
+  }
+
+  .info_channelName {
+    color: variables.$text_color;
+    font-family: sans-serif;
+    font-size: 0.875rem;
+  }
+
+  .channel_since {
+    color: variables.$since_text_color;
+    font-family: sans-serif;
+    font-size: 0.75rem;
+  }
+}
+
+.channel_tag {
+  grid-area: 2 / 2 / 3 / 3;
+}

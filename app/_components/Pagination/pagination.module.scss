@@ -1,0 +1,64 @@
+@use '@/_styles/variables/variables.scss';
+
+@mixin pagination_style() {
+  list-style: none;
+  height: 40px;
+  width: 40px;
+
+  font-weight: bold;
+  font-size: 18px;
+
+  opacity: 0.5;
+}
+
+$back_color: #2f3642;
+
+$forcus_color: #687792;
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  padding: 0;
+
+  @include variables.mq(lg) {
+    width: 50%;
+  }
+}
+
+.pagination {
+  @include pagination_style();
+}
+
+.current {
+  @include pagination_style();
+  display: grid;
+  place-content: center;
+  color: variables.$text_color;
+  border-radius: 10px;
+  background-color: $back_color;
+  border: 5px solid rgb(189, 104, 104);
+}
+
+.link {
+  color: variables.$text_color;
+  background-color: $back_color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  border-radius: 10px;
+
+  &:focus {
+    background-color: $forcus_color;
+  }
+
+  &:hover {
+    background-color: $forcus_color;
+  }
+}
