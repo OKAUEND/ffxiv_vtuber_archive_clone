@@ -15,9 +15,9 @@ const getChannel = async (offset: string): Promise<HikasenVtuber[]> => {
       : `?offset=${BASE_QUERY_COUNT * (Number(offset) - 1)}&limit=20`;
 
   const URL = `${process.env.NEXT_PUBLIC_CHANNELLIST_URL}${query}`;
-  const data = await fetchExtend<HikasenVtuber[]>({ url: URL, store: false });
+  const res = await fetch(URL);
 
-  return data;
+  return res.json();
 };
 
 export default async function Home() {
