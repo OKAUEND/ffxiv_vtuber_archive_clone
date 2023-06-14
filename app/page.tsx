@@ -1,11 +1,24 @@
 import '@/_styles/reset.scss';
-export const dynamic = 'force-dynamic';
 import styles from '@/_styles/rootPage.module.scss';
 
 import { Pagination } from './_components/Pagination';
-import { getChannel } from '@/channels/_lib/api/getChannel';
 import { ChannelPanel } from '@/channels/_components/ChannelPanel';
 import { ErrorBoundaryExtended } from '@/_components/ErrorBoundary';
+import { HikasenVtuber } from './(types)';
+import { fetchExtend } from './_utile/fetch';
+
+const getChannel = async (offset: string): Promise<HikasenVtuber[]> => {
+  const BASE_QUERY_COUNT = 20;
+  const query =
+    Number(offset) === 1
+      ? ''
+      : `?offset=${BASE_QUERY_COUNT * (Number(offset) - 1)}&limit=20`;
+
+  const URL = `${process.env.NEXT_PUBLIC_CHANNELLIST_URL}${query}`;
+  const data = await fetchExtend<HikasenVtuber[]>({ url: URL });
+
+  return data;
+};
 
 export default async function Home() {
   const channels = await getChannel('1');
