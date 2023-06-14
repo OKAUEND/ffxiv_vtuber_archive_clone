@@ -1,6 +1,5 @@
 node_modules
 .next
-.yarn
 .DS_Store
 dist
 dist-ssr
@@ -8,3 +7,5 @@ dist-ssr
 .env
 yarn.lock
 *env.local.*
+.yarn/cache
+.yarn/install-state.gz
