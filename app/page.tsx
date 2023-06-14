@@ -16,10 +16,19 @@ const getChannel = async (offset: string): Promise<HikasenVtuber[]> => {
 
   const URL = `${process.env.NEXT_PUBLIC_CHANNELLIST_URL}${query}`;
   const res = await fetch(
-    'https://script.google.com/macros/s/AKfycbysbZa3_S-yMyyWfByCFxXMIyZypLrPBJJDZE9bzu9IJWExnVmonPcHFTixr0HVWQL6QQ/exec'
+    'https://script.google.com/macros/s/AKfycbwEdmW8xsUb0O1RxyCbDVeCxUcKGPsU-V60FHplZslE6eYllYwHikTcHfIAFAUnIGtJBg/exec'
   );
+  if (!res.ok) {
+    throw new Error(`${res.status}`);
+  }
 
-  return res.json();
+  const data = await res.json();
+
+  if (typeof data === 'number') {
+    throw new Error(`${data}`);
+  }
+
+  return data;
 };
 
 export default async function Home() {
