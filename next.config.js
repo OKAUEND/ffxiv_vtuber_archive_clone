@@ -1,3 +1,5 @@
+const path = require('path');
+
 /** @type {import('next').NextConfig} */
 const urlPrefix = process.env.URL_PREFIX ? '/' + process.env.URL_PREFIX : '';
 
