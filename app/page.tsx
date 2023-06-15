@@ -1,7 +1,6 @@
 import '@/_styles/reset.scss';
 import styles from '@/_styles/rootPage.module.scss';
 
-import { Pagination } from './_components/Pagination';
 import { ChannelPanel } from '@/channels/_components/ChannelPanel';
 import { ErrorBoundaryExtended } from '@/_components/ErrorBoundary';
 import { HikasenVtuber } from './(types)';
@@ -25,8 +24,6 @@ export default async function Home() {
     <section className={styles.content}>
       <ErrorBoundaryExtended>
         <ChannelPanel channels={channels} />
-
-        <Pagination basePath="channels" currentPageNumber={1} />
       </ErrorBoundaryExtended>
     </section>
   );
