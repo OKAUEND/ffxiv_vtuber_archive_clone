@@ -1,0 +1,26 @@
+@use '@/_styles/variables/variables.scss';
+
+.container {
+  color: variables.$text-color;
+}
+
+.title_text {
+  font-size: 50px;
+}
+
+.subtitle {
+  font-size: 35px;
+  margin: 0px;
+}
+
+.content {
+  border-top: 2px solid variables.$text-color;
+}
+
+.about_link {
+  color: variables.$text-color;
+}
+
+.warning {
+  font-weight: 800;
+}

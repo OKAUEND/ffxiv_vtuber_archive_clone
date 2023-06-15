@@ -1,3 +1,6 @@
 export const useHeader = () => {
-  return ['トップ', 'このサイトについて'];
+  return [
+    { text: 'トップ', path: '/' },
+    { text: 'このサイトについて', path: '/about' },
+  ];
 };

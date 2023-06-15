@@ -24,21 +24,3 @@ export const createFetchMock = <T>({ success, status, data }: IResponse<T>) => {
   };
   global.fetch = vi.fn().mockImplementation(dataMock);
 };
-
-// export const createFetchOffsetMock = <T>({
-//   success,
-//   status,
-//   data,
-// }: IResponse<T>) => {
-//   const dataMock = () =>
-//     new Promise((resolve) => {
-//       resolve({
-//         ok: success,
-//         status: status,
-//         json: async () => data,
-//       });
-//     });
-//   global.fetch = vi.fn().mockImplementation(dataMock);
-
-//   const test = dataMock.call[0][0];
-// };

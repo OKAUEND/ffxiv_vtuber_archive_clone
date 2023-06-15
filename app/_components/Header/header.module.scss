@@ -18,5 +18,9 @@
 
 .header_links {
   margin-right: 10px;
-  color: variables.$text-color;
+
+  .href {
+    color: variables.$text-color;
+    text-decoration: none;
+  }
 }
