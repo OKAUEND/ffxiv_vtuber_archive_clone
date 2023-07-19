@@ -11,6 +11,7 @@ const createWhereQuery = (
     //ページ数をParameterで
     if (currentKey[0] === 'orderBy') return acc;
 
+    // eslint-disable-next-line no-console
     console.log(currentKey[1]);
 
     //まずは配信時間のWhere文だけを作成する
