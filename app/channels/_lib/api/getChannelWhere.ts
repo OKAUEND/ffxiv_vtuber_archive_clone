@@ -11,13 +11,12 @@ const createWhereQuery = (
     //ページ数をParameterで
     if (currentKey[0] === 'orderBy') return acc;
 
-    // eslint-disable-next-line no-console
-    console.log(currentKey[1]);
+    const time = currentKey[1] ? currentKey[1] : new Date('2018');
 
     //まずは配信時間のWhere文だけを作成する
     //後にタグ検索とかを行いたいので、改修はしようね
-    const beginDayTime = new Date(currentKey[1]);
-    const endDayTime = new Date(currentKey[1]);
+    const beginDayTime = new Date(time);
+    const endDayTime = new Date(time);
     endDayTime.setMonth(12);
     endDayTime.setSeconds(-1);
 
