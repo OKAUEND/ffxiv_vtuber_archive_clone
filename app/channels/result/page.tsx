@@ -12,7 +12,8 @@ export default async function ChannelResultIndex({
     <>
       {searchParams.sort}
       {searchParams.year}
-      {/* <ChannelResult page={params.pages} params={searchParams} /> */}
+      {/* @ts-expect-error Async Server Component */}
+      <ChannelResult page={params.pages} params={searchParams} />
     </>
   );
 }

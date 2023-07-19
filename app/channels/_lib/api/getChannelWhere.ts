@@ -24,9 +24,9 @@ const createWhereQuery = (
     const where: Prisma.ChannelWhereInput = {
       beginTime: {
         //開始日時
-        gte: beginDayTime,
+        gte: beginDayTime.toISOString(),
         //終了日時
-        lt: endDayTime,
+        lt: endDayTime.toISOString(),
       },
     };
 
