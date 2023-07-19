@@ -1,0 +1,21 @@
+@use '@/_styles/variables/variables.scss';
+
+.container {
+  width: 100%;
+}
+
+.search_event {
+  display: grid;
+  place-items: center;
+
+  & .search {
+    width: 200px;
+    height: 45px;
+    border-radius: 10px;
+    background-color: rgb(47, 55, 70);
+
+    font-weight: bold;
+    font-size: 16px;
+    color: variables.$title_color;
+  }
+}

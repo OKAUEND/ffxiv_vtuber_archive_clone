@@ -1,19 +1,13 @@
 'use client';
 
 import styles from '@/archives/_styles/archives.module.scss';
+import DayTime from '@/_utile/convert/DayTime';
 
 interface IProps {
   Archives: GoogleApiYouTubeSearchResource[];
 }
 
 export const ArchiveList = ({ Archives }: IProps) => {
-  const convertDayTime = (time: string) => {
-    const date = new Date(time);
-    return `${date.getFullYear()}年 ${
-      date.getMonth() + 1
-    }月${date.getDate()}日`;
-  };
-
   return (
     <ul className={styles.container}>
       {Archives.map((archive, index) => (
@@ -30,7 +24,7 @@ export const ArchiveList = ({ Archives }: IProps) => {
           <div className={styles.info}>
             <p className={styles.archive_title}>{archive.snippet.title}</p>
             <div className={styles.live_daytime}>
-              {convertDayTime(archive.snippet.publishedAt)}
+              {DayTime(archive.snippet.publishedAt)}
             </div>
           </div>
         </li>

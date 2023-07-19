@@ -13,15 +13,9 @@ export const Icon = ({
   width = 96,
   height = 96,
 }: Props): JSX.Element => {
-  const youtubeIconURL = process.env.YOUTUBE_CHANNEL_ICON_URL;
   return (
     <div className="rounded-full">
-      <Image
-        src={`${youtubeIconURL}${src}`}
-        alt={alt}
-        width={width}
-        height={height}
-      />
+      <Image src={`${src}`} alt={alt} width={width} height={height} />
     </div>
   );
 };

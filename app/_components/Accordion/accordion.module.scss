@@ -1,0 +1,51 @@
+@use '@/_styles/variables/variables.scss';
+
+.container {
+  width: 100%;
+  margin-top: 10px;
+  display: grid;
+  place-items: center;
+
+  @include variables.mq(lg) {
+    width: 800px;
+  }
+}
+
+.accordion_event {
+  width: 80%;
+  height: 45px;
+  border-radius: 10px;
+
+  font-weight: bold;
+  font-size: 16px;
+  color: variables.$title_color;
+
+  background-color: rgb(47, 55, 70);
+  border: 3px solid rgb(47, 55, 70);
+  transition: all 0.2s;
+
+  @include variables.mq(lg) {
+    width: 400px;
+  }
+
+  &.open {
+    background-color: rgb(99, 111, 129);
+  }
+
+  &.hidden {
+  }
+}
+
+.body {
+  width: 100%;
+
+  &.open {
+    border-bottom: 2px rgb(59, 59, 59) solid;
+    padding-bottom: 15px;
+  }
+
+  &.hidden {
+    display: none;
+    transition: all 0.2s;
+  }
+}

@@ -1,7 +1,11 @@
 import { getChannel } from '@/channels/_lib/api/getChannel';
 import { ChannelPanel } from '@/channels/_components/ChannelPanel';
 
-export const Channel = async () => {
-  const channels = await getChannel('1');
+interface IProps {
+  param: string;
+}
+
+export const Channel = async ({ param }: IProps) => {
+  const channels = await getChannel(param);
   return <ChannelPanel channels={channels} />;
 };

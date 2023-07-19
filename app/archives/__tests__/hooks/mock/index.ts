@@ -1,7 +1,8 @@
 export const GoogleYoutubeFactory = (
-  name = 'Mock',
-  token = 'FirstToken'
+  totalPage = 0
 ): GoogleApiYouTubePaginationInfo<GoogleApiYouTubeSearchResource> => {
+  const name = 'Mock';
+  const token = 'FirstToken';
   return {
     kind: name,
     etag: name,
@@ -9,7 +10,7 @@ export const GoogleYoutubeFactory = (
     prevPageToken: 'prev',
 
     pageInfo: {
-      totalResults: 0,
+      totalResults: totalPage,
       resultsPerPage: 0,
     },
     items: YoutubeResourceFactory(name),

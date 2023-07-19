@@ -1,0 +1,67 @@
+@use '@/_styles/variables/variables.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.channels {
+  display: grid;
+  grid-template-columns: 50px 100px 2fr 1fr;
+  grid-template-rows: 1fr 0.5fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  gap: 0 15px;
+
+  border-top: 1px variables.$title_color solid;
+  margin-top: 1em;
+  padding-top: 1em;
+
+  &:first-child {
+    border-top: 0px;
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+.channel_sever {
+  grid-area: 1 / 1 / 3 / 2;
+  display: grid;
+  place-items: center;
+
+  font-size: 45px;
+
+  color: variables.$title_color;
+
+  &.channel_hasServer {
+    color: rgb(224, 0, 0);
+    font-weight: 1000;
+  }
+}
+
+.channel_icon {
+  grid-area: 1 / 2 / 3 / 3;
+  display: grid;
+  place-items: center;
+}
+
+.channel_info {
+  grid-area: 1 / 3 / 2 / 4;
+  display: flex;
+  flex-direction: column;
+  color: variables.$text_color;
+
+  .title {
+    margin: 0;
+    color: variables.$title_color;
+  }
+}
+
+.channel_tag {
+  grid-area: 2 / 3 / 3 / 5;
+}
+
+.channel_action {
+  grid-area: 1 / 4 / 3 / 5;
+}

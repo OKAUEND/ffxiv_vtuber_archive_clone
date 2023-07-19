@@ -16,6 +16,7 @@ type YoutubeDate =
 
 type ArchiveListState = {
   archives: readonly Archive[];
+  totalArchives: number;
   mightHaveMore: boolean;
   loading: boolean;
 };
@@ -91,6 +92,17 @@ const archiveListQuery = selectorFamily<YoutubeDate, QueryInput>({
     },
 });
 
+const isArchives = selectorFamily<boolean, QueryInput>({
+  key: 'data-flow/isArchives',
+  get:
+    ({ channelId, beginTime = '' }) =>
+    ({ get }) => {
+      const result = get(archiveListQuery({ channelId, beginTime }));
+      const archives = get(archiveList(channelId));
+      return result.pageInfo.totalResults > archives.totalArchives;
+    },
+});
+
 //
 const formattedVtuberArchiveQuery = selectorFamily<
   { filteredArchive: Archive[]; originalLength: number },
@@ -138,6 +150,7 @@ const archiveListRecursion = selectorFamily<ArchiveListState, Offset>({
       if (youtubeArchive.originalLength < limit) {
         return {
           archives: youtubeArchive.filteredArchive,
+          totalArchives: youtubeArchive.originalLength,
           mightHaveMore: false,
           loading: false,
         };
@@ -147,6 +160,7 @@ const archiveListRecursion = selectorFamily<ArchiveListState, Offset>({
       if (requestedItems === offset + limit) {
         return {
           archives: youtubeArchive.filteredArchive,
+          totalArchives: youtubeArchive.originalLength,
           mightHaveMore: true,
           loading: false,
         };
@@ -172,6 +186,7 @@ const archiveListRecursion = selectorFamily<ArchiveListState, Offset>({
         case 'loading': {
           return {
             archives: youtubeArchive.filteredArchive,
+            totalArchives: youtubeArchive.originalLength,
             mightHaveMore: true,
             loading: true,
           };
@@ -183,6 +198,8 @@ const archiveListRecursion = selectorFamily<ArchiveListState, Offset>({
               ...youtubeArchive.filteredArchive,
               ...rest.contents.archives,
             ],
+            totalArchives:
+              youtubeArchive.originalLength + rest.contents.totalArchives,
             mightHaveMore: rest.contents.mightHaveMore,
             loading: false,
           };
@@ -252,4 +269,18 @@ export const usePage = () => {
       }
   );
   return [loadNextList, decrementPageSize];
+};
+
+/**
+ *
+ * @returns {boolean} 次に取得する内容が存在するかどうか
+ */
+export const useVisible = (channelId: string) => {
+  const isVisible = useRecoilValue(isArchives({ channelId, beginTime: '' }));
+
+  const loadNextList = useRecoilCallback(({ set }) => (channelId: string) => {
+    set(totalItems(channelId), (count) => count + pageSize);
+  });
+
+  return { isVisible, loadNextList };
 };

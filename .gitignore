@@ -4,7 +4,7 @@ node_modules
 dist
 dist-ssr
 *.local
-.env
+.env*
 yarn.lock
 *env.local.*
 .yarn/cache

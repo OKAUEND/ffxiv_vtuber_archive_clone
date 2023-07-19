@@ -1,7 +1,39 @@
+@use './variables/variables.scss';
+
+$forcus_color: #687792;
+
 .content {
   display: flex;
   min-height: 100%;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  // justify-content: space-between;
+}
+
+.search_container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+
+  margin-top: 10px;
+
+  & .link {
+    width: 170px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    color: variables.$text_color;
+    font-size: large;
+    font-weight: 600;
+    transition: all 0.2s;
+
+    &:focus {
+      background-color: $forcus_color;
+    }
+
+    &:hover {
+      background-color: $forcus_color;
+    }
+  }
 }
