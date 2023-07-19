@@ -36,10 +36,10 @@ const createWhereQuery = (
 };
 
 export const getChannelWhere = async (
-  params: ChannelSearchParams,
+  params: Prisma.ChannelWhereInput,
   page: string
 ) => {
-  const query = createWhereQuery(params);
+  // const query = createWhereQuery(params);
   //モバイルでのみやすさも考慮し、20件ほどに絞る。10件だけはPCやタブレットで見るには少なすぎる
   const BASE_QUERY_COUNT = 20;
   //何も指定がないときのためのガード構文
@@ -49,8 +49,8 @@ export const getChannelWhere = async (
   const skip =
     offsetNumber === 1 ? 0 : BASE_QUERY_COUNT * (offsetNumber - 1) + 1;
 
-  const res = await getChannelWhereOffset(skip, query, 'desc');
-  const count = await getChannelWhereCount(query);
+  const res = await getChannelWhereOffset(skip, params, 'desc');
+  const count = await getChannelWhereCount(params);
 
   return [res, count] as const;
 };

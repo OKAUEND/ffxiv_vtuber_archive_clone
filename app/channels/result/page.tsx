@@ -20,7 +20,7 @@ const createWhereQuery = (params: ChannelSearchParams) => {
       lt: endDayTime.toISOString(),
     },
   };
-  return beginDayTime;
+  return where;
 };
 
 const getChannelWhere = (params: ChannelSearchParams, page: string) => {
@@ -39,8 +39,8 @@ export default async function ChannelResultIndex({
   const query = getChannelWhere(searchParams, '');
   return (
     <>
-      {query.toISOString()}
-      {/* <ChannelResult page={params.pages} params={searchParams} /> */}
+      {/* @ts-expect-error Async Server Component */}
+      <ChannelResult page={params.pages} params={searchParams} query={query} />
     </>
   );
 }

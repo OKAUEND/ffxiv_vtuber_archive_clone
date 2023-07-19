@@ -8,14 +8,16 @@ import { Accordion } from '@/_components/Accordion';
 import { SearchCategories } from '@/channels/_components/Search/SearchCategories';
 
 import styles from '@/_styles/rootPage.module.scss';
+import { Prisma } from '@prisma/client';
 
 interface IProps {
   page: string;
   params: ChannelSearchParams;
+  query: Prisma.ChannelWhereInput;
 }
 
-export const ChannelResult = async ({ page, params }: IProps) => {
-  const [channels, count] = await getChannelWhere(params, page);
+export const ChannelResult = async ({ page, params, query }: IProps) => {
+  const [channels, count] = await getChannelWhere(query, page);
 
   return (
     <section className={styles.content}>
