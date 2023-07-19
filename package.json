@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS='--no-experimental-fetch' next dev",
-    "build": "next build",
+    "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "frmt": "prettier --write 'src/**/*.tsx' 'src/**/*.ts'",
@@ -21,7 +21,7 @@
     "typescript": "^5.1.6"
   },
   "devDependencies": {
-    "@prisma/client": "latest",
+    "@prisma/client": "^5.0.0",
     "@testing-library/dom": "^8.20.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
