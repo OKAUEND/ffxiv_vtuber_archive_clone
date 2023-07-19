@@ -11,7 +11,7 @@ const createWhereQuery = (
     //ページ数をParameterで
     if (currentKey[0] === 'orderBy') return acc;
 
-    const time = currentKey[1] ? currentKey[1] : new Date('2018');
+    const time = new Date('2018');
 
     //まずは配信時間のWhere文だけを作成する
     //後にタグ検索とかを行いたいので、改修はしようね
