@@ -11,7 +11,7 @@ type TEST = {
 const createWhereQuery = (params: ChannelSearchParams) => {
   const keys: [string, string][] = Object.entries(params);
 
-  let query: TEST = {};
+  let query: Prisma.ChannelWhereInput = {};
   keys.forEach((value) => {
     switch (value[0]) {
       case 'orderBy':
@@ -35,7 +35,7 @@ const createWhereQuery = (params: ChannelSearchParams) => {
             lt: endDayTime.toISOString(),
           },
         };
-        query = { ...query, beginDayTime, endDayTime };
+        query = { ...query, ...where };
         break;
       }
       default:
@@ -61,7 +61,7 @@ export const getChannelWhere = async (
   const skip =
     offsetNumber === 1 ? 0 : BASE_QUERY_COUNT * (offsetNumber - 1) + 1;
 
-  const res = await getChannelWhereOffset(skip, params, 'desc');
+  const res = await getChannelWhereOffset(skip, query, 'desc');
   const count = await getChannelWhereCount(params);
 
   return [res, count, query] as const;

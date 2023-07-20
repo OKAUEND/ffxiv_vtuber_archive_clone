@@ -21,8 +21,6 @@ export const ChannelResult = async ({ page, params, query }: IProps) => {
 
   return (
     <section className={styles.content}>
-      {test.beginDayTime.toISOString()}
-      {test.endDayTime.toISOString()}
       <Accordion title="さらにVtuberを探す">
         <SearchCategories params={params} />
       </Accordion>
