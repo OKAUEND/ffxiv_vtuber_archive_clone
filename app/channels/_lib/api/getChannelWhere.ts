@@ -2,42 +2,48 @@ import { getChannelWhereCount, getChannelWhereOffset } from '@/_utile/prisma';
 import { ChannelSearchParams } from '@/channels/(types)';
 import { Prisma } from '@prisma/client';
 
+type TEST = {
+  order?: string;
+  beginDayTime?: Date;
+  endDayTime?: Date;
+};
+
 const createWhereQuery = (params: ChannelSearchParams) => {
-  const keys = Object.entries(params);
+  const keys: [string, string][] = Object.entries(params);
 
-  // const query = keys.reduce((acc, currentKey) => {
-  //   //ページ数をParameterで
-  //   if (currentKey[0] === 'orderBy') return acc;
+  let query: TEST = {};
+  keys.forEach((value) => {
+    switch (value[0]) {
+      case 'orderBy':
+      case 'sort':
+        break;
+      case 'year': {
+        const time = new Date(value[1]);
 
-  //   const time = new Date('2018');
+        //まずは配信時間のWhere文だけを作成する
+        //後にタグ検索とかを行いたいので、改修はしようね
+        const beginDayTime = new Date(time);
+        const endDayTime = new Date(time);
+        endDayTime.setMonth(12);
+        endDayTime.setSeconds(-1);
 
-  //   //まずは配信時間のWhere文だけを作成する
-  //   //後にタグ検索とかを行いたいので、改修はしようね
-  //   const beginDayTime = new Date(time);
-  //   const endDayTime = new Date(time);
-  //   endDayTime.setMonth(12);
-  //   endDayTime.setSeconds(-1);
+        const where: Prisma.ChannelWhereInput = {
+          beginTime: {
+            //開始日時
+            gte: beginDayTime.toISOString(),
+            //終了日時
+            lt: endDayTime.toISOString(),
+          },
+        };
+        query = { ...query, beginDayTime, endDayTime };
+        break;
+      }
+      default:
+        break;
+    }
+  });
 
-  //   const where: Prisma.ChannelWhereInput = {
-  //     beginTime: {
-  //       //開始日時
-  //       gte: beginDayTime.toISOString(),
-  //       //終了日時
-  //       lt: endDayTime.toISOString(),
-  //     },
-  //   };
-
-  //   return where;
-  // }, {});
-
-  //まずは配信時間のWhere文だけを作成する
-  //後にタグ検索とかを行いたいので、改修はしようね
-  const beginDayTime = new Date(params.year);
-  const endDayTime = new Date(params.year);
-  endDayTime.setMonth(12);
-  endDayTime.setSeconds(-1);
-
-  return { beginDayTime, endDayTime };
+  return query;
 };
 
 export const getChannelWhere = async (
