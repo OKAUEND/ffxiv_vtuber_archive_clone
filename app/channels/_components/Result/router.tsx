@@ -17,13 +17,12 @@ interface IProps {
 }
 
 export const ChannelResult = async ({ page, params, query }: IProps) => {
-  const [channels, count] = await getChannelWhere(query, page);
-
-  const time = new Date(params.year);
+  const [channels, count, test] = await getChannelWhere(query, params, page);
 
   return (
     <section className={styles.content}>
-      {time.toISOString()}
+      {test.beginDayTime.toISOString()}
+      {test.endDayTime.toISOString()}
       <Accordion title="さらにVtuberを探す">
         <SearchCategories params={params} />
       </Accordion>
