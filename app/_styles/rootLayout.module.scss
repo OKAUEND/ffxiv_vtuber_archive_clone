@@ -21,6 +21,7 @@
 .main_container {
   margin-left: 10px;
   margin-right: 10px;
+  height: 100%;
 
   @include variables.mq(lg) {
     grid-area: 2 / 2 / 3 / 3;

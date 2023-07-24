@@ -30,8 +30,8 @@ export const SearchCategories = ({ params }: IProps) => {
     <form action="/api/form" method="GET" className={styles.container}>
       <div>
         <h2>絞り込み</h2>
-        <fieldset>
-          <legend>並び</legend>
+        <fieldset className={styles.category_field}>
+          <legend className={styles.title}>並び</legend>
           <RadioList
             categories={sortData}
             selected={selectedOption.key}
@@ -42,8 +42,8 @@ export const SearchCategories = ({ params }: IProps) => {
       </div>
       <div>
         <h2>カテゴリー検索</h2>
-        <fieldset>
-          <legend>配信開始年</legend>
+        <fieldset className={styles.category_field}>
+          <legend className={styles.title}>配信開始年</legend>
           <RadioList
             categories={years}
             selected={selectedYear.key}

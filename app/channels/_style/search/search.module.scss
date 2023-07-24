@@ -4,9 +4,24 @@
   width: 100%;
 }
 
+.category_field {
+  border-top: 2px solid variables.$since_text_color;
+  border-left: 0px;
+  border-bottom: 0px;
+  border-right: 0px;
+
+  margin: 0;
+
+  & .title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
 .search_event {
   display: grid;
   place-items: center;
+  height: 100px;
 
   & .search {
     width: 200px;
