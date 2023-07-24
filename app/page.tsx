@@ -1,8 +1,6 @@
 import styles from '@/_styles/rootPage.module.scss';
 
-import { Pagination } from './_components/Pagination';
-import { ChannelPanel } from '@/channels/_components/ChannelPanel';
-import { ErrorBoundaryExtended } from '@/_components/ErrorBoundary';
+import { ChannelIndex } from '@/channels/_components/ChannelIndex';
 import { HikasenVtuber } from './(types)';
 import { getChannelOffset, getChannelCount } from './_utile/prisma';
 import Link from 'next/link';
@@ -23,15 +21,7 @@ export default async function Home() {
           配信者を探す→
         </Link>
       </div>
-      <ErrorBoundaryExtended>
-        <ChannelPanel channels={channels} />
-
-        <Pagination
-          basePath="channels"
-          currentPageNumber={1}
-          totalCount={totalCount}
-        />
-      </ErrorBoundaryExtended>
+      <ChannelIndex totalCount={totalCount} channels={channels} page="1" />
     </section>
   );
 }

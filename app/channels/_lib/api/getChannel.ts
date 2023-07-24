@@ -1,7 +1,9 @@
 import { HikasenVtuber } from '@/(types)/';
-import { getChannelOffset } from '@/_utile/prisma';
+import { getChannelCount, getChannelOffset } from '@/_utile/prisma';
 
-export const getChannel = async (offset: string): Promise<HikasenVtuber[]> => {
+export const getChannel = async (
+  offset: string
+): Promise<readonly [HikasenVtuber[], number]> => {
   //モバイルでのみやすさも考慮し、20件ほどに絞る。10件だけはPCやタブレットで見るには少なすぎる
   const BASE_QUERY_COUNT = 20;
   //何も指定がないときのためのガード構文
@@ -11,7 +13,8 @@ export const getChannel = async (offset: string): Promise<HikasenVtuber[]> => {
   const skip =
     offsetNumber === 1 ? 0 : BASE_QUERY_COUNT * (offsetNumber - 1) + 1;
 
-  const res = getChannelOffset(skip);
+  const channels = await getChannelOffset(skip);
+  const count = await getChannelCount();
 
-  return res;
+  return [channels, count] as const;
 };

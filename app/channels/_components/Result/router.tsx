@@ -7,33 +7,29 @@ import { Accordion } from '@/_components/Accordion';
 
 import { SearchCategories } from '@/channels/_components/Search/SearchCategories';
 
+import { ChannelIndex } from '@/channels/_components/ChannelIndex';
+
 import styles from '@/_styles/rootPage.module.scss';
-import { Prisma } from '@prisma/client';
 
 interface IProps {
   page: string;
   params: ChannelSearchParams;
-  query: Prisma.ChannelWhereInput;
 }
 
-export const ChannelResult = async ({ page, params, query }: IProps) => {
-  const [channels, count, test] = await getChannelWhere(query, params, page);
+export const ChannelResult = async ({ page, params }: IProps) => {
+  const [channels, count] = await getChannelWhere(params, page);
 
   return (
     <section className={styles.content}>
       <Accordion title="さらにVtuberを探す">
         <SearchCategories params={params} />
       </Accordion>
-      <ErrorBoundaryExtended>
-        <ChannelPanel channels={channels} />
-
-        <Pagination<ChannelSearchParams>
-          basePath="channels/result/"
-          query={params}
-          currentPageNumber={Number(page)}
-          totalCount={count}
-        />
-      </ErrorBoundaryExtended>
+      <ChannelIndex
+        page={page}
+        totalCount={count}
+        channels={channels}
+        params={params}
+      />
     </section>
   );
 };

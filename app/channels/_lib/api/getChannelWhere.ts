@@ -2,19 +2,33 @@ import { getChannelWhereCount, getChannelWhereOffset } from '@/_utile/prisma';
 import { ChannelSearchParams } from '@/channels/(types)';
 import { Prisma } from '@prisma/client';
 
-type TEST = {
-  order?: string;
-  beginDayTime?: Date;
-  endDayTime?: Date;
+export const getChannelWhere = async (
+  params: ChannelSearchParams,
+  page: string
+) => {
+  const query = createWhereQuery(params);
+  //モバイルでのみやすさも考慮し、20件ほどに絞る。10件だけはPCやタブレットで見るには少なすぎる
+  const BASE_QUERY_COUNT = 20;
+  //何も指定がないときのためのガード構文
+  const offsetNumber = page ? Number(page) : 1;
+
+  //ページ番号よりOffsetでずらす件数を作成し、+1することで、同じ要素の重複取得を防ぐ
+  const skip =
+    offsetNumber === 1 ? 0 : BASE_QUERY_COUNT * (offsetNumber - 1) + 1;
+
+  const res = await getChannelWhereOffset(skip, query, 'desc');
+  const count = await getChannelWhereCount(query);
+
+  return [res, count] as const;
 };
 
 const createWhereQuery = (params: ChannelSearchParams) => {
   const keys: [string, string][] = Object.entries(params);
 
+  //クエリパラメータをループで処理し、queryオブジェクトにマージしていくことで、1つの検索条件オブジェクトとする
   let query: Prisma.ChannelWhereInput = {};
   keys.forEach((value) => {
     switch (value[0]) {
-      case 'orderBy':
       case 'sort':
         break;
       case 'year': {
@@ -44,25 +58,4 @@ const createWhereQuery = (params: ChannelSearchParams) => {
   });
 
   return query;
-};
-
-export const getChannelWhere = async (
-  params: Prisma.ChannelWhereInput,
-  test: ChannelSearchParams,
-  page: string
-) => {
-  const query = createWhereQuery(test);
-  //モバイルでのみやすさも考慮し、20件ほどに絞る。10件だけはPCやタブレットで見るには少なすぎる
-  const BASE_QUERY_COUNT = 20;
-  //何も指定がないときのためのガード構文
-  const offsetNumber = page ? Number(page) : 1;
-
-  //ページ番号よりOffsetでずらす件数を作成し、+1することで、同じ要素の重複取得を防ぐ
-  const skip =
-    offsetNumber === 1 ? 0 : BASE_QUERY_COUNT * (offsetNumber - 1) + 1;
-
-  const res = await getChannelWhereOffset(skip, query, 'desc');
-  const count = await getChannelWhereCount(params);
-
-  return [res, count, query] as const;
 };

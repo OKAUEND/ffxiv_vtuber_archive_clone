@@ -36,6 +36,7 @@ const createPageNumber = (totalCount: number) => {
 const createOffsetNumber = (pageNumber: number, currantNumber: number) => {
   //2以下は2つ分の以前のページ番号を表示する必要がないため、そのまま値を返す
   if (pageNumber <= 2) return currantNumber;
+  if (pageNumber === currantNumber) return currantNumber - 3;
 
   return currantNumber > pageNumber - 1 ? currantNumber - 2 : 1;
 };
@@ -68,8 +69,9 @@ export const Pagination = <T,>({
   const offsetPageNumber = createOffsetNumber(maxPage, currentPageNumber);
   const queryParameter = createQueryParameter<T>(query);
 
-  const paginationList = () =>
-    [...Array(maxPage)].map((_, index) => offsetPageNumber + index);
+  const paginationList = [...Array(maxPage)].map(
+    (_, index) => offsetPageNumber + index
+  );
 
   const toggleCurrantNumberStyle = (
     currantNumber: number,
@@ -80,7 +82,7 @@ export const Pagination = <T,>({
 
   return (
     <ul className={styles.container}>
-      {paginationList().map((number, index) => (
+      {paginationList.map((number, index) => (
         <li
           className={toggleCurrantNumberStyle(currentPageNumber, number)}
           key={index}

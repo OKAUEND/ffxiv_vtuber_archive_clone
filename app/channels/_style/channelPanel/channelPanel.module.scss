@@ -63,7 +63,6 @@
 
   .info_text {
     color: variables.$title_color;
-    font-family: sans-serif;
     font-size: 1.125rem;
     display: grid;
     place-items: center;
@@ -71,7 +70,6 @@
 
   .info_channelName {
     color: variables.$text_color;
-    font-family: sans-serif;
     font-size: 0.875rem;
   }
 
