@@ -1,0 +1,9 @@
+.signin {
+  width: 200px;
+  height: 40px;
+  border-radius: 10px;
+
+  & .green {
+    background-color: rgb(38, 189, 38);
+  }
+}

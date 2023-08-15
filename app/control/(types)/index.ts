@@ -1,8 +1,8 @@
-import { HikasenVtuber } from '@/(types)';
+import { HikasenVtuber, Tags } from '@/(types)';
 
 export interface Channels {
-  gas: HikasenVtuber[];
-  db: HikasenVtuber[];
+  gas: HikasenVtuber<Tags>[];
+  db: HikasenVtuber<Tags>[];
 }
 
 /**

@@ -28,15 +28,39 @@ model User {
 }
 
 model Channel {
-  id             Int      @id @default(autoincrement())
-  channelID      String   @unique
+  id             Int       @id @default(autoincrement())
+  channelID      String    @unique
   name           String
   channelName    String
   channelIconURL String
-  isOfficial     Boolean  @default(false)
+  isOfficial     Boolean   @default(false)
   dataCenter     String
   server         String
   Twitter        String
   Twitch         String
-  beginTime      DateTime @default(now()) @db.Timestamptz(3)
+  beginTime      DateTime  @default(now()) @db.Timestamptz(3)
+  tags           Tagging[]
+}
+
+model Tags {
+  id         Int       @id @default(autoincrement())
+  name       String
+  code       String
+  type       String
+  isActive   Boolean   @default(true)
+  create_at  DateTime  @default(now()) @map("create_at")
+  updated_at DateTime  @updatedAt @map("updated_at")
+  channels   Tagging[]
+}
+
+model Tagging {
+  channel    Channel  @relation(fields: [channel_id], references: [id])
+  channel_id Int
+  tags       Tags     @relation(fields: [tag_id], references: [id])
+  tag_id     Int
+  create_at  DateTime @default(now()) @map("create_at")
+  updated_at DateTime @updatedAt @map("updated_at")
+
+  @@id([channel_id, tag_id])
+  @@index([channel_id, tag_id])
 }

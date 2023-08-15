@@ -1,9 +1,9 @@
-import { HikasenVtuber } from '@/(types)/';
+import { HikasenVtuber, Tags } from '@/(types)/';
 import { getChannelCount, getChannelOffset } from '@/_utile/prisma';
 
 export const getChannel = async (
   offset: string
-): Promise<readonly [HikasenVtuber[], number]> => {
+): Promise<readonly [HikasenVtuber<Tags>[], number]> => {
   //モバイルでのみやすさも考慮し、20件ほどに絞る。10件だけはPCやタブレットで見るには少なすぎる
   const BASE_QUERY_COUNT = 20;
   //何も指定がないときのためのガード構文

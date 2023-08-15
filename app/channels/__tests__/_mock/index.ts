@@ -1,21 +1,27 @@
 import { HikasenVtuber } from '@/(types)';
+import { Tagging } from '@prisma/client';
 
-const HikasenVtuberResourceFactory = (name: string): HikasenVtuber => {
+const HikasenVtuberResourceFactory = (
+  name: string
+): HikasenVtuber<Tagging[]> => {
   return {
     channelID: name,
-    channelIconID: '/public/mock/image/icon.png',
+    channelIconURL: '/public/mock/image/icon.png',
     channelName: `${name} Channel`,
     name: name,
-    twitter: '',
-    twitch: '',
-    ffxiv: {
-      dataCenter: 'test',
-      server: 'test',
-    },
+    Twitter: '',
+    Twitch: '',
+    dataCenter: 'test',
+    server: 'test',
+    isOfficial: false,
+    beginTime: '',
+    tags: [],
   };
 };
 
-export const createHikasenVtuberData = (name: string): HikasenVtuber[] => {
+export const createHikasenVtuberData = (
+  name: string
+): HikasenVtuber<Tagging[]>[] => {
   const array = Array.from({ length: 5 }, (_, index) =>
     HikasenVtuberResourceFactory(`${name}${index}`)
   );

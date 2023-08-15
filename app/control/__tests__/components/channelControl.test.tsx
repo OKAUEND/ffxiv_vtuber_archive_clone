@@ -10,7 +10,7 @@ describe('Control Channel Component UI TEST', () => {
     return createHikasenVtuberData('Control');
   });
   test('Hookから取得した要素をリストで表示できているか', () => {
-    render(<ChannelControl />);
+    render(<ChannelControl isAdmin={true} />);
 
     const list = screen.getByRole('list');
 
@@ -19,7 +19,7 @@ describe('Control Channel Component UI TEST', () => {
     expect(items.length).toBe(5);
   });
   test('配信者名を表示できているか', () => {
-    render(<ChannelControl />);
+    render(<ChannelControl isAdmin={true} />);
 
     const list = screen.getByRole('list');
 
@@ -31,7 +31,7 @@ describe('Control Channel Component UI TEST', () => {
     expect(heads.length).toEqual(5);
   });
   test('配信者のアイコンは表示出来ているか', () => {
-    render(<ChannelControl />);
+    render(<ChannelControl isAdmin={true} />);
 
     const imageElement = screen.getAllByAltText(/のチャンネルアイコン$/);
     expect(imageElement.length).toEqual(5);

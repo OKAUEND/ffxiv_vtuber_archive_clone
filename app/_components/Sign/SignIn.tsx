@@ -1,5 +1,7 @@
 'use client';
 
+import styles from './sign.module.scss';
+
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Provider } from '@supabase/supabase-js';
 
@@ -21,5 +23,12 @@ export const SignIn = ({ provider, children, param = '' }: IProps) => {
     });
   };
 
-  return <button onClick={() => onSignIn()}>{children}</button>;
+  return (
+    <button
+      className={`${styles.signin} ${styles.green}`}
+      onClick={() => onSignIn()}
+    >
+      {children}
+    </button>
+  );
 };

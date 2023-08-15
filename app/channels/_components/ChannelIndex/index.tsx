@@ -2,10 +2,10 @@ import { ErrorBoundaryExtended } from '@/_components/ErrorBoundary';
 import { ChannelSearchParams } from '@/channels/(types)';
 import { ChannelPanel } from '../ChannelPanel';
 import { Pagination } from '@/_components/Pagination';
-import { HikasenVtuber } from '@/(types)';
+import { HikasenVtuber, Tags } from '@/(types)';
 
 interface IProps {
-  channels: HikasenVtuber[];
+  channels: HikasenVtuber<Tags>[];
   page?: string;
   totalCount: number;
   params?: ChannelSearchParams;

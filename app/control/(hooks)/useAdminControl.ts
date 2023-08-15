@@ -2,12 +2,12 @@ import { atom, selector, useRecoilValue, useRecoilCallback } from 'recoil';
 
 import { fetchExtend } from '@/_utile/fetch';
 import { Channels, FilterOption } from '@/control/(types)';
-import { HikasenVtuber } from '@/(types)';
+import { HikasenVtuber, Tags } from '@/(types)';
 import { useCallback } from 'react';
 
-type ControlChannel = HikasenVtuber & { isAllMatched: boolean };
+type ControlChannel = HikasenVtuber<Tags> & { isAllMatched: boolean };
 
-const updateChannel = async (channels: HikasenVtuber[]) => {
+const updateChannel = async (channels: HikasenVtuber<Tags>[]) => {
   await fetchExtend({
     method: 'POST',
     url: '/api/control/',
@@ -16,7 +16,7 @@ const updateChannel = async (channels: HikasenVtuber[]) => {
   });
 };
 
-const selectedChannel = atom<Map<string, HikasenVtuber>>({
+const selectedChannel = atom<Map<string, HikasenVtuber<Tags>>>({
   key: 'store/selected-channel',
   default: new Map([]),
 });
@@ -40,7 +40,7 @@ const channelQuery = selector({
   },
 });
 
-export const channelMapToArray = selector<HikasenVtuber[]>({
+export const channelMapToArray = selector<HikasenVtuber<Tags>[]>({
   key: 'convert/selected-channel',
   get: ({ get }) => {
     const mapChannels = get(selectedChannel);
@@ -111,7 +111,7 @@ export const useAdminControl = () => {
   const cacheChannel = useRecoilCallback(
     ({ set }) =>
       (channel: ControlChannel) => {
-        const tmpChannel: HikasenVtuber = {
+        const tmpChannel: HikasenVtuber<Tags> = {
           channelID: channel.channelID,
           channelIconURL: channel.channelIconURL,
           channelName: channel.channelName,

@@ -2,11 +2,13 @@
 import { useEffect } from 'react';
 
 import { RadioList } from '@/_components/RadioList';
+import { CheckBoxList } from '@/_components/CheckBoxList';
 
 import {
   useChannelSearchOption,
   useChannelSearchBeginYear,
   useInitChannelSearch,
+  useTags,
 } from '@/channels/(hooks)/Search/useChannelSearchCategories';
 import { ChannelSearchParams } from '@/channels/(types)';
 
@@ -20,6 +22,7 @@ export const SearchCategories = ({ params }: IProps) => {
   const [initCategories] = useInitChannelSearch();
   const [selectedOption, sortData, changeOption] = useChannelSearchOption();
   const [selectedYear, years, changeYear] = useChannelSearchBeginYear();
+  const tags = useTags();
 
   useEffect(() => {
     initCategories(params);
@@ -50,6 +53,33 @@ export const SearchCategories = ({ params }: IProps) => {
             group="year"
             changeHandler={changeYear}
           />
+        </fieldset>
+        <fieldset>
+          <legend>プレイスタイル</legend>
+          <CheckBoxList
+            values={tags.content}
+            changeHandler={() => {
+              return;
+            }}
+          ></CheckBoxList>
+        </fieldset>
+        <fieldset>
+          <legend>PTプレイ</legend>
+          <CheckBoxList
+            values={tags.party}
+            changeHandler={() => {
+              return;
+            }}
+          ></CheckBoxList>
+        </fieldset>
+        <fieldset>
+          <legend>配信時間帯</legend>
+          <CheckBoxList
+            values={tags.timezone}
+            changeHandler={() => {
+              return;
+            }}
+          ></CheckBoxList>
         </fieldset>
       </div>
       <div className={styles.search_event}>

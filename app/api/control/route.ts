@@ -1,13 +1,17 @@
 import { fetchExtend } from '@/_utile/fetch';
 import { HikasenVtuber } from '@/(types)/';
+import { Tagging } from '@prisma/client';
 
 import prisma from '@/_utile/prisma';
 
 export async function GET() {
   const url = `${process.env.CHANNELLIST_URL}`;
 
-  const gas = await fetchExtend<HikasenVtuber[]>({ url, store: false });
-  const convertChannels: HikasenVtuber[] = gas.map((channel) => {
+  const gas = await fetchExtend<HikasenVtuber<Tagging>[]>({
+    url,
+    store: false,
+  });
+  const convertChannels: HikasenVtuber<Tagging>[] = gas.map((channel) => {
     //スプレッドシートからの取得ではJTCではなくUTCになっているため、9時間をたしてJTCにする
     const time = new Date(channel.beginTime);
     time.setHours(time.getHours() + 9);
@@ -32,7 +36,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const channel: HikasenVtuber[] = await request.json();
+  const channel: HikasenVtuber<Tagging>[] = await request.json();
   await prisma.channel.createMany({
     data: channel,
     skipDuplicates: true,
