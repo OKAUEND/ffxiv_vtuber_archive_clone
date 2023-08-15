@@ -14,11 +14,9 @@ export async function GET(request: NextRequest) {
   [...queries].forEach((query, index) => {
     if (query[1] === 'none' || query[1] === '0000') return;
 
-    if (index === 0) return (param = `?${query[0]}=${query[1]}`);
-
     switch (query[0]) {
       case 'sort':
-        return (param = `?sort=${query[1]}`);
+        return (param = `sort=${query[1]}`);
       case 'year':
         return (year = `${year}&year=${query[1]}`);
       case 'content':
@@ -32,5 +30,5 @@ export async function GET(request: NextRequest) {
 
   //作成したパスで結果画面へアクセスする。
   //値の取得自体は結果画面で行うため、ここではクエリの作成だけをする
-  redirect(`/channels/result/?${request.nextUrl.searchParams}`);
+  redirect(`/channels/result?${param}${year}${content}${play}${timezone}`);
 }
